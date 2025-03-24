@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="css/material-icons.css" media="all" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="></script>
+    <link rel="stylesheet" href="css/material.indigo-blue.min.css" />
+    <link rel="stylesheet" href="css/uPlot.min.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link href="css/index.css" media="all" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/json5.min.js"></script>
+    <script type="text/javascript" src="js/uPlot.iife.min.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/eventemitter2.min.js"></script>
+    <script text="text/javascript" src="js/import-helper.js"></script>
+    <script type="text/javascript" src="js/material.min.js" defer></script>
+    <script type="text/javascript" src="js/leaflet.js"></script>
+    <script type="text/javascript" src="js/gl-matrix.js"></script>
+    <script type="text/javascript" src="js/litegl.min.js"></script>
+    <script type="text/javascript" src="js/index.js" defer></script>
+
+    <title>ROSboard</title>
+
+    <style>
+        /* Styling untuk sidebar */
+        #topics-nav-ros {
+            position: fixed;
+            top: 75px;
+            left: 0;
+            width: 200px;
+            height: calc(100% - 95px);
+            background-color: wheat;
+            padding: 20px;
+            color: black;
+            z-index: 1000;
+            overflow-y: auto;
+            border-radius: 10px;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+            bottom: 20px;
+        }
+
+        .page-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            background-color: #aefb3f;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        header div {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header span {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            display: block;
+        }
+
+        /* Styling untuk pop-up */
+        .popup {
+            display: none; /* Sembunyikan pop-up secara default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%; /* Lebih besar */
+            height: auto;
+            position: relative;
+            overflow: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 36px; /* Tombol lebih besar */
+            cursor: pointer;
+        }
+
+        .close-btn .material-icons {
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header>
+            <div>
+                <span>AIR TEAM INDONESIA</span>
+            </div>
+        </header>
+
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <button id="open-popup">Buka Pop-up</button>
+                <div class="grid">
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar menu -->
+        <div id="topics-nav-ros">
+        </div>
+    </div>
+
+    <!-- Pop-up container -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <button id="close-popup" class="close-btn">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Menampilkan pop-up saat tombol dibuka
+            $('#open-popup').on('click', function() {
+                $('#popup').fadeIn();
+            });
+
+            // Menutup pop-up saat tombol close ditekan
+            $('#close-popup').on('click', function() {
+                $('#popup').fadeOut();
+            });
+
+            // Menutup pop-up saat klik di luar konten pop-up
+            $('#popup').on('click', function(e) {
+                if ($(e.target).is('#popup')) {
+                    $('#popup').fadeOut();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
